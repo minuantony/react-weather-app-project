@@ -22,8 +22,9 @@
   line-height: 60px;
   font-weight: 400;
 }
-img {
+canvas {
   float: left;
+  padding-right: 5px;
 }
 .Weather .unit {
   position: relative;
