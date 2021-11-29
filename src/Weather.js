@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 import "./Weather.css";
 import axios from "axios";
-import FormattedDate from "./FormattedDate";
-
-export default function Weather(props) {
+import WeatherInfo from "./WeatherInfo";
+export default function Weather() {
   let [loaded, setLoaded] = useState(false);
   let [city, setCity] = useState("");
   let [weatherData, setWeatherData] = useState({});
 
   function showResponse(response) {
+    console.log(response.data);
     setWeatherData({
       date: new Date(response.data.dt * 1000),
       temperature: Math.round(response.data.main.temp),
       humidity: response.data.main.humidity,
-      iconUrl: "https://ssl.gstatic.com/onebox/weather/64/sunny_s_cloudy.png",
+      iconUrl: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
       wind: response.data.wind.speed,
       description: response.data.weather[0].description,
       city: response.data.name,
     });
     setLoaded(true);
+    console.log(response.data.weather[0].icon);
   }
   function handleSubmit(event) {
     event.preventDefault();
@@ -49,26 +50,7 @@ export default function Weather(props) {
             </div>
           </div>
         </form>
-        <h1>{weatherData.city}</h1>
-        <ul className="description">
-          <li>
-            <FormattedDate date={weatherData.date} />
-          </li>
-          <li className="text-capitalize">{weatherData.description}</li>
-        </ul>
-        <div className="row">
-          <div className="col-6 p-2">
-            <img src={weatherData.iconUrl} alt="" width="64" height="64" />
-            <span className="temperature">{weatherData.temperature}</span>
-            <span className="unit">°C|F</span>
-          </div>
-          <div className="col-5 p-2">
-            <ul>
-              <li>Humidity:{weatherData.humidity}%</li>
-              <li>Wind: {weatherData.wind}km/h</li>
-            </ul>
-          </div>
-        </div>
+        <WeatherInfo data={weatherData} />
       </div>
     );
   } else {
