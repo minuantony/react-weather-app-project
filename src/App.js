@@ -10,7 +10,15 @@ export default function App() {
         </div>
         <footer>
           {" "}
-          This project was coded by Minu Antony and is{" "}
+          This project was coded by{" "}
+          <a
+            href="https://www.linkedin.com/in/minu-antony-30806036"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Minu Antony
+          </a>{" "}
+          and is{" "}
           <a
             href="https://github.com/minuantony/react-weather-app-project"
             target="_blank"
@@ -18,7 +26,15 @@ export default function App() {
           >
             open-sourced on GitHub
           </a>{" "}
-          and hosted on Netlify.
+          and{" "}
+          <a
+            href="https://unruffled-tereshkova-ec8cf0.netlify.app"
+            target="_blank"
+            rel="noreferrer"
+          >
+            hosted on Netlify
+          </a>
+          .
         </footer>
       </div>
     </div>

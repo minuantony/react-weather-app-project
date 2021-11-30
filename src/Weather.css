@@ -25,6 +25,7 @@
 canvas {
   float: left;
   padding-right: 5px;
+  margin-top: 10px;
 }
 .Weather .unit {
   position: relative;
