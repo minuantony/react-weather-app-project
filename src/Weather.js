@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import "./Weather.css";
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
+import WeatherForecast from "./WeatherForecast";
+
 export default function Weather() {
-  let [loaded, setLoaded] = useState(false);
   let [city, setCity] = useState("");
-  let [weatherData, setWeatherData] = useState({});
+  let [weatherData, setWeatherData] = useState({ loaded: false });
 
   function showResponse(response) {
     console.log(response.data);
     setWeatherData({
+      loaded: true,
       date: new Date(response.data.dt * 1000),
+      cordinates: response.data.coord,
       temperature: Math.round(response.data.main.temp),
       humidity: response.data.main.humidity,
       icon: response.data.weather[0].icon,
@@ -18,8 +21,6 @@ export default function Weather() {
       description: response.data.weather[0].description,
       city: response.data.name,
     });
-    setLoaded(true);
-    console.log(response.data.weather[0].icon);
   }
   function handleSubmit(event) {
     event.preventDefault();
@@ -30,8 +31,10 @@ export default function Weather() {
 
   function updateChange(event) {
     setCity(event.target.value);
+    setWeatherData({ weatherData, loaded: false });
   }
-  if (loaded) {
+
+  if (weatherData.loaded) {
     return (
       <div className="Weather">
         <form className="form mt-3" onSubmit={handleSubmit}>
@@ -50,7 +53,12 @@ export default function Weather() {
             </div>
           </div>
         </form>
-        <WeatherInfo data={weatherData} />
+        <div>
+          <WeatherInfo data={weatherData} />
+        </div>
+        <div>
+          <WeatherForecast coordinates={weatherData.cordinates} />
+        </div>
       </div>
     );
   } else {
